@@ -1,0 +1,114 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue117;\red234\green234\blue234;\red0\green0\blue0;
+\red83\green85\blue2;\red82\green0\blue83;\red11\green84\blue83;\red16\green121\blue2;\red115\green0\blue2;
+\red52\green52\blue52;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c53333;\cssrgb\c93333\c93333\c93333;\cssrgb\c0\c0\c0;
+\cssrgb\c40000\c40000\c0;\cssrgb\c40000\c0\c40000;\cssrgb\c0\c40000\c40000;\cssrgb\c0\c53333\c0;\cssrgb\c53333\c0\c0;
+\cssrgb\c26667\c26667\c26667;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl416\partightenfactor0
+
+\f0\fs32 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 package\cf4 \strokec4  seleniumGrid\cf5 \strokec5 ;\cf4 \strokec4 \
+\
+\cf2 \strokec2 import\cf4 \strokec4  java\cf5 \strokec5 .\cf4 \strokec4 net\cf5 \strokec5 .\cf6 \strokec6 MalformedURLException\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  java\cf5 \strokec5 .\cf4 \strokec4 net\cf5 \strokec5 .\cf4 \strokec4 URL\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  java\cf5 \strokec5 .\cf4 \strokec4 util\cf5 \strokec5 .\cf4 \strokec4 concurrent\cf5 \strokec5 .\cf6 \strokec6 TimeUnit\cf5 \strokec5 ;\cf4 \strokec4 \
+\
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 openqa\cf5 \strokec5 .\cf4 \strokec4 selenium\cf5 \strokec5 .\cf6 \strokec6 By\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 openqa\cf5 \strokec5 .\cf4 \strokec4 selenium\cf5 \strokec5 .\cf6 \strokec6 WebDriver\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 openqa\cf5 \strokec5 .\cf4 \strokec4 selenium\cf5 \strokec5 .\cf4 \strokec4 remote\cf5 \strokec5 .\cf6 \strokec6 DesiredCapabilities\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 openqa\cf5 \strokec5 .\cf4 \strokec4 selenium\cf5 \strokec5 .\cf4 \strokec4 remote\cf5 \strokec5 .\cf6 \strokec6 RemoteWebDriver\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 testng\cf5 \strokec5 .\cf4 \strokec4 annotations\cf5 \strokec5 .\cf6 \strokec6 AfterTest\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 testng\cf5 \strokec5 .\cf4 \strokec4 annotations\cf5 \strokec5 .\cf6 \strokec6 BeforeTest\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 testng\cf5 \strokec5 .\cf4 \strokec4 annotations\cf5 \strokec5 .\cf6 \strokec6 Parameters\cf5 \strokec5 ;\cf4 \strokec4 \
+\cf2 \strokec2 import\cf4 \strokec4  org\cf5 \strokec5 .\cf4 \strokec4 testng\cf5 \strokec5 .\cf4 \strokec4 annotations\cf5 \strokec5 .\cf6 \strokec6 Test\cf5 \strokec5 ;\cf4 \strokec4 \
+\
+\cf2 \strokec2 public\cf4 \strokec4  \cf2 \strokec2 class\cf4 \strokec4  \cf6 \strokec6 TestGridClass\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+	\cf2 \strokec2 public\cf4 \strokec4  \cf6 \strokec6 WebDriver\cf4 \strokec4  driver\cf5 \strokec5 ;\cf4 \strokec4 \
+	\cf2 \strokec2 public\cf4 \strokec4  \cf6 \strokec6 String\cf4 \strokec4  URL\cf5 \strokec5 ,\cf4 \strokec4  \cf6 \strokec6 Node\cf5 \strokec5 ;\cf4 \strokec4 \
+	\cf2 \strokec2 protected\cf4 \strokec4  \cf6 \strokec6 ThreadLocal\cf5 \strokec5 <\cf6 \strokec6 RemoteWebDriver\cf5 \strokec5 >\cf4 \strokec4  threadDriver \cf5 \strokec5 =\cf4 \strokec4  \cf2 \strokec2 null\cf5 \strokec5 ;\cf4 \strokec4 \
+\
+	\cf7 \strokec7 @Parameters\cf5 \strokec5 (\cf8 \strokec8 "browser"\cf5 \strokec5 )\cf4 \strokec4 \
+	\cf7 \strokec7 @BeforeTest\cf4 \strokec4 \
+	\cf2 \strokec2 public\cf4 \strokec4  \cf2 \strokec2 void\cf4 \strokec4  launchbrowser\cf5 \strokec5 (\cf6 \strokec6 String\cf4 \strokec4  browser\cf5 \strokec5 )\cf4 \strokec4  \cf2 \strokec2 throws\cf4 \strokec4  \cf6 \strokec6 MalformedURLException\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+		\cf6 \strokec6 String\cf4 \strokec4  URL \cf5 \strokec5 =\cf4 \strokec4  \cf8 \strokec8 "http://www.calculator.net"\cf5 \strokec5 ;\cf4 \strokec4 \
+\
+		\cf2 \strokec2 if\cf4 \strokec4  \cf5 \strokec5 (\cf4 \strokec4 browser\cf5 \strokec5 .\cf4 \strokec4 equalsIgnoreCase\cf5 \strokec5 (\cf8 \strokec8 "firefox"\cf5 \strokec5 ))\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+			\cf6 \strokec6 System\cf5 \strokec5 .\cf2 \strokec2 out\cf5 \strokec5 .\cf4 \strokec4 println\cf5 \strokec5 (\cf8 \strokec8 " Executing on FireFox"\cf5 \strokec5 );\cf4 \strokec4 \
+			\cf6 \strokec6 String\cf4 \strokec4  \cf6 \strokec6 Node\cf4 \strokec4  \cf5 \strokec5 =\cf4 \strokec4  \cf8 \strokec8 "http://192.168.1.3:5566/wd/hub"\cf5 \strokec5 ;\cf4 \strokec4 \
+			\cf6 \strokec6 DesiredCapabilities\cf4 \strokec4  cap \cf5 \strokec5 =\cf4 \strokec4  \cf6 \strokec6 DesiredCapabilities\cf5 \strokec5 .\cf4 \strokec4 firefox\cf5 \strokec5 ();\cf4 \strokec4 \
+			cap\cf5 \strokec5 .\cf4 \strokec4 setBrowserName\cf5 \strokec5 (\cf8 \strokec8 "firefox"\cf5 \strokec5 );\cf4 \strokec4 \
+\
+			driver \cf5 \strokec5 =\cf4 \strokec4  \cf2 \strokec2 new\cf4 \strokec4  \cf6 \strokec6 RemoteWebDriver\cf5 \strokec5 (\cf2 \strokec2 new\cf4 \strokec4  URL\cf5 \strokec5 (\cf6 \strokec6 Node\cf5 \strokec5 ),\cf4 \strokec4  cap\cf5 \strokec5 );\cf4 \strokec4 \
+			\cf9 \strokec9 // Puts an Implicit wait, Will wait for 10 seconds before throwing\cf4 \strokec4 \
+			\cf9 \strokec9 // exception\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 manage\cf5 \strokec5 ().\cf4 \strokec4 timeouts\cf5 \strokec5 ().\cf4 \strokec4 implicitlyWait\cf5 \strokec5 (\cf7 \strokec7 10\cf5 \strokec5 ,\cf4 \strokec4  \cf6 \strokec6 TimeUnit\cf5 \strokec5 .\cf4 \strokec4 SECONDS\cf5 \strokec5 );\cf4 \strokec4 \
+\
+			\cf9 \strokec9 // Launch website\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 navigate\cf5 \strokec5 ().\cf4 \strokec4 to\cf5 \strokec5 (\cf4 \strokec4 URL\cf5 \strokec5 );\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 manage\cf5 \strokec5 ().\cf4 \strokec4 window\cf5 \strokec5 ().\cf4 \strokec4 maximize\cf5 \strokec5 ();\cf4 \strokec4 \
+		\cf5 \strokec5 \}\cf4 \strokec4  \cf2 \strokec2 else\cf4 \strokec4  \cf2 \strokec2 if\cf4 \strokec4  \cf5 \strokec5 (\cf4 \strokec4 browser\cf5 \strokec5 .\cf4 \strokec4 equalsIgnoreCase\cf5 \strokec5 (\cf8 \strokec8 "chrome"\cf5 \strokec5 ))\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+			\cf6 \strokec6 System\cf5 \strokec5 .\cf2 \strokec2 out\cf5 \strokec5 .\cf4 \strokec4 println\cf5 \strokec5 (\cf8 \strokec8 " Executing on CHROME"\cf5 \strokec5 );\cf4 \strokec4 \
+			\cf6 \strokec6 DesiredCapabilities\cf4 \strokec4  cap \cf5 \strokec5 =\cf4 \strokec4  \cf6 \strokec6 DesiredCapabilities\cf5 \strokec5 .\cf4 \strokec4 chrome\cf5 \strokec5 ();\cf4 \strokec4 \
+			cap\cf5 \strokec5 .\cf4 \strokec4 setBrowserName\cf5 \strokec5 (\cf8 \strokec8 "chrome"\cf5 \strokec5 );\cf4 \strokec4 \
+			\cf6 \strokec6 String\cf4 \strokec4  \cf6 \strokec6 Node\cf4 \strokec4  \cf5 \strokec5 =\cf4 \strokec4  \cf8 \strokec8 "http://192.168.1.3:5567/wd/hub"\cf5 \strokec5 ;\cf4 \strokec4 \
+			driver \cf5 \strokec5 =\cf4 \strokec4  \cf2 \strokec2 new\cf4 \strokec4  \cf6 \strokec6 RemoteWebDriver\cf5 \strokec5 (\cf2 \strokec2 new\cf4 \strokec4  URL\cf5 \strokec5 (\cf6 \strokec6 Node\cf5 \strokec5 ),\cf4 \strokec4  cap\cf5 \strokec5 );\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 manage\cf5 \strokec5 ().\cf4 \strokec4 timeouts\cf5 \strokec5 ().\cf4 \strokec4 implicitlyWait\cf5 \strokec5 (\cf7 \strokec7 10\cf5 \strokec5 ,\cf4 \strokec4  \cf6 \strokec6 TimeUnit\cf5 \strokec5 .\cf4 \strokec4 SECONDS\cf5 \strokec5 );\cf4 \strokec4 \
+\
+			\cf9 \strokec9 // Launch website\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 navigate\cf5 \strokec5 ().\cf4 \strokec4 to\cf5 \strokec5 (\cf4 \strokec4 URL\cf5 \strokec5 );\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 manage\cf5 \strokec5 ().\cf4 \strokec4 window\cf5 \strokec5 ().\cf4 \strokec4 maximize\cf5 \strokec5 ();\cf4 \strokec4 \
+		\cf5 \strokec5 \}\cf4 \strokec4  \cf2 \strokec2 else\cf4 \strokec4  \cf2 \strokec2 if\cf4 \strokec4  \cf5 \strokec5 (\cf4 \strokec4 browser\cf5 \strokec5 .\cf4 \strokec4 equalsIgnoreCase\cf5 \strokec5 (\cf8 \strokec8 "ie"\cf5 \strokec5 ))\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+			\cf6 \strokec6 System\cf5 \strokec5 .\cf2 \strokec2 out\cf5 \strokec5 .\cf4 \strokec4 println\cf5 \strokec5 (\cf8 \strokec8 " Executing on IE"\cf5 \strokec5 );\cf4 \strokec4 \
+			\cf6 \strokec6 DesiredCapabilities\cf4 \strokec4  cap \cf5 \strokec5 =\cf4 \strokec4  \cf6 \strokec6 DesiredCapabilities\cf5 \strokec5 .\cf4 \strokec4 chrome\cf5 \strokec5 ();\cf4 \strokec4 \
+			cap\cf5 \strokec5 .\cf4 \strokec4 setBrowserName\cf5 \strokec5 (\cf8 \strokec8 "ie"\cf5 \strokec5 );\cf4 \strokec4 \
+			\cf6 \strokec6 String\cf4 \strokec4  \cf6 \strokec6 Node\cf4 \strokec4  \cf5 \strokec5 =\cf4 \strokec4  \cf8 \strokec8 "http://192.168.1.3:5568/wd/hub"\cf5 \strokec5 ;\cf4 \strokec4 \
+			driver \cf5 \strokec5 =\cf4 \strokec4  \cf2 \strokec2 new\cf4 \strokec4  \cf6 \strokec6 RemoteWebDriver\cf5 \strokec5 (\cf2 \strokec2 new\cf4 \strokec4  URL\cf5 \strokec5 (\cf6 \strokec6 Node\cf5 \strokec5 ),\cf4 \strokec4  cap\cf5 \strokec5 );\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 manage\cf5 \strokec5 ().\cf4 \strokec4 timeouts\cf5 \strokec5 ().\cf4 \strokec4 implicitlyWait\cf5 \strokec5 (\cf7 \strokec7 10\cf5 \strokec5 ,\cf4 \strokec4  \cf6 \strokec6 TimeUnit\cf5 \strokec5 .\cf4 \strokec4 SECONDS\cf5 \strokec5 );\cf4 \strokec4 \
+\
+			\cf9 \strokec9 // Launch website\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 navigate\cf5 \strokec5 ().\cf4 \strokec4 to\cf5 \strokec5 (\cf4 \strokec4 URL\cf5 \strokec5 );\cf4 \strokec4 \
+			driver\cf5 \strokec5 .\cf4 \strokec4 manage\cf5 \strokec5 ().\cf4 \strokec4 window\cf5 \strokec5 ().\cf4 \strokec4 maximize\cf5 \strokec5 ();\cf4 \strokec4 \
+		\cf5 \strokec5 \}\cf4 \strokec4  \cf2 \strokec2 else\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+			\cf2 \strokec2 throw\cf4 \strokec4  \cf2 \strokec2 new\cf4 \strokec4  \cf6 \strokec6 IllegalArgumentException\cf5 \strokec5 (\cf8 \strokec8 "The Browser Type is Undefined"\cf5 \strokec5 );\cf4 \strokec4 \
+		\cf5 \strokec5 \}\cf4 \strokec4 \
+	\cf5 \strokec5 \}\cf4 \strokec4 \
+\
+	\cf7 \strokec7 @Test\cf4 \strokec4 \
+	\cf2 \strokec2 public\cf4 \strokec4  \cf2 \strokec2 void\cf4 \strokec4  calculatepercent\cf5 \strokec5 ()\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+		\cf9 \strokec9 // Click on Math Calculators\cf4 \strokec4 \
+		driver\cf5 \strokec5 .\cf4 \strokec4 findElement\cf5 \strokec5 (\cf6 \strokec6 By\cf5 \strokec5 .\cf4 \strokec4 xpath\cf5 \strokec5 (\cf8 \strokec8 "//a[contains(text(),'Math')]"\cf5 \strokec5 )).\cf4 \strokec4 click\cf5 \strokec5 ();\cf4 \strokec4 \
+		\cf9 \strokec9 // Click on Percent Calculators\cf4 \strokec4 \
+		driver\cf5 \strokec5 .\cf4 \strokec4 findElement\cf5 \strokec5 (\cf4 \strokec4 \
+				\cf6 \strokec6 By\cf5 \strokec5 .\cf4 \strokec4 xpath\cf5 \strokec5 (\cf8 \strokec8 "//a[contains(text(),'Percentage Calculator')]"\cf5 \strokec5 ))\cf4 \strokec4 \
+				\cf5 \strokec5 .\cf4 \strokec4 click\cf5 \strokec5 ();\cf4 \strokec4 \
+		\cf9 \strokec9 // Enter value 17 in the first number of the percent Calculator\cf4 \strokec4 \
+		driver\cf5 \strokec5 .\cf4 \strokec4 findElement\cf5 \strokec5 (\cf6 \strokec6 By\cf5 \strokec5 .\cf4 \strokec4 id\cf5 \strokec5 (\cf8 \strokec8 "cpar1"\cf5 \strokec5 )).\cf4 \strokec4 sendKeys\cf5 \strokec5 (\cf8 \strokec8 "17"\cf5 \strokec5 );\cf4 \strokec4 \
+		\cf9 \strokec9 // Enter value 35 in the second number of the percent Calculator\cf4 \strokec4 \
+		driver\cf5 \strokec5 .\cf4 \strokec4 findElement\cf5 \strokec5 (\cf6 \strokec6 By\cf5 \strokec5 .\cf4 \strokec4 id\cf5 \strokec5 (\cf8 \strokec8 "cpar2"\cf5 \strokec5 )).\cf4 \strokec4 sendKeys\cf5 \strokec5 (\cf8 \strokec8 "35"\cf5 \strokec5 );\cf4 \strokec4 \
+\
+		\cf9 \strokec9 // Click Calculate Button\cf4 \strokec4 \
+		driver\cf5 \strokec5 .\cf4 \strokec4 findElement\cf5 \strokec5 (\cf4 \strokec4 \
+				\cf6 \strokec6 By\cf5 \strokec5 .\cf4 \strokec4 xpath\cf5 \strokec5 (\cf8 \strokec8 "(//input[contains(@value,'Calculate')])[1]"\cf5 \strokec5 )).\cf4 \strokec4 click\cf5 \strokec5 ();\cf4 \strokec4 \
+		\cf9 \strokec9 // Get the Result Text based on its xpath\cf4 \strokec4 \
+		\cf6 \strokec6 String\cf4 \strokec4  result \cf5 \strokec5 =\cf4 \strokec4  driver\cf5 \strokec5 .\cf4 \strokec4 findElement\cf5 \strokec5 (\cf4 \strokec4 \
+				\cf6 \strokec6 By\cf5 \strokec5 .\cf4 \strokec4 xpath\cf5 \strokec5 (\cf8 \strokec8 ".//*[@id='content']/p[2]/font/b"\cf5 \strokec5 )).\cf4 \strokec4 getText\cf5 \strokec5 ();\cf4 \strokec4 \
+		\cf9 \strokec9 // Print a Log In message to the screen\cf4 \strokec4 \
+		\cf6 \strokec6 System\cf5 \strokec5 .\cf2 \strokec2 out\cf5 \strokec5 .\cf4 \strokec4 println\cf5 \strokec5 (\cf8 \strokec8 " The Result is "\cf4 \strokec4  \cf5 \strokec5 +\cf4 \strokec4  result\cf5 \strokec5 );\cf4 \strokec4 \
+		\cf2 \strokec2 if\cf4 \strokec4  \cf5 \strokec5 (\cf4 \strokec4 result\cf5 \strokec5 .\cf4 \strokec4 equals\cf5 \strokec5 (\cf8 \strokec8 "5.95"\cf5 \strokec5 ))\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+			\cf6 \strokec6 System\cf5 \strokec5 .\cf2 \strokec2 out\cf5 \strokec5 .\cf4 \strokec4 println\cf5 \strokec5 (\cf8 \strokec8 " The Result is Pass"\cf5 \strokec5 );\cf4 \strokec4 \
+		\cf5 \strokec5 \}\cf4 \strokec4  \cf2 \strokec2 else\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+			\cf6 \strokec6 System\cf5 \strokec5 .\cf2 \strokec2 out\cf5 \strokec5 .\cf4 \strokec4 println\cf5 \strokec5 (\cf8 \strokec8 " The Result is Fail"\cf5 \strokec5 );\cf4 \strokec4 \
+		\cf5 \strokec5 \}\cf4 \strokec4 \
+	\cf5 \strokec5 \}\cf4 \strokec4 \
+\
+	\cf7 \strokec7 @AfterTest\cf4 \strokec4 \
+	\cf2 \strokec2 public\cf4 \strokec4  \cf2 \strokec2 void\cf4 \strokec4  closeBrowser\cf5 \strokec5 ()\cf4 \strokec4  \cf5 \strokec5 \{\cf4 \strokec4 \
+		\cf9 \strokec9 // driver.quit();\cf4 \strokec4 \
+	\cf5 \strokec5 \}\cf4 \strokec4 \
+\pard\pardeftab720\sl416\partightenfactor0
+\cf5 \strokec5 \}\cf10 \strokec10 \
+}
